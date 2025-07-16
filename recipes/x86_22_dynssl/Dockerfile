@@ -1,4 +1,4 @@
-FROM i386/debian:bullseye
+FROM i386/debian:bookworm
 
 ARG GID=1000
 ARG UID=1000
@@ -6,8 +6,8 @@ ARG UID=1000
 RUN groupadd --gid $GID node \
     && useradd --gid $GID --uid $UID node
 
-RUN sed -i 's|deb.debian.org|mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list
-RUN sed -i 's|security.debian.org|mirrors.tuna.tsinghua.edu.cn/debian-security|g' /etc/apt/sources.list
+RUN sed -i 's|deb.debian.org|mirrors.tuna.tsinghua.edu.cn|g' /etc/apt/sources.list.d/debian.sources
+RUN sed -i 's|security.debian.org|mirrors.tuna.tsinghua.edu.cn/debian-security|g' /etc/apt/sources.list.d/debian.sources
 
 RUN apt-get update \
     && apt-get upgrade -y \
@@ -19,7 +19,8 @@ RUN apt-get update \
          ccache \
          g++ \
          xz-utils \
-         build-essential
+         build-essential \
+         libssl-dev
 
 COPY --chown=node:node run.sh /home/node/run.sh
 
