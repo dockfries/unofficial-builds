@@ -35,8 +35,8 @@ ccache --version && ccache g++ --version
 
 export CC="ccache gcc"
 export CXX="ccache g++"
-export CXXFLAGS="-m32 -msse4.2" # idk, we cannot build without -msse
-export CFLAGS="-m32 -msse4.2" # idk, we cannot build without -msse
+export CXXFLAGS="-m32 -msse -msse2" # idk, we cannot build without -msse
+export CFLAGS="-m32 -msse -msse2" # idk, we cannot build without -msse
 export MAJOR_VERSION=$(echo ${fullversion} | cut -d . -f 1 | tr --delete v)
 
 make -j$(getconf _NPROCESSORS_ONLN) binary V= \
